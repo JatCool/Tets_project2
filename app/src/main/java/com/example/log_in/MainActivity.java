@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                         while (!cursor.isAfterLast()){
                             product= cursor.getString(0)+"|"+cursor.getString(1)+"|"+cursor.getString(2)+"|"+cursor.getString(3);
                           cursor.moveToNext();
+                          Toast qwe = Toast.makeText(getApplicationContext(),"KEK",Toast.LENGTH_LONG);qwe.show();
                         }
                         cursor.close();
                         t.setText(product);
