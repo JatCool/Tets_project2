@@ -110,6 +110,7 @@ public class Registr extends AppCompatActivity {
 
         } else {
             check.setBackgroundColor(Color.GREEN);
+            Toast.makeText(getApplicationContext(),"Этот логин свободный",Toast.LENGTH_LONG).show();
             return true;
         }
     }

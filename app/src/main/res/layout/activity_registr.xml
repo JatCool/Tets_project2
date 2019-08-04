@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+    android:background="@color/Background"
     android:screenOrientation="portrait"
 
     tools:context="com.example.log_in.Registr">
 
     <EditText
         android:id="@+id/reg_pass"
-        android:layout_width="300dp"
-        android:layout_height="51dp"
+        android:layout_width="230dp"
+        android:layout_height="53dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -31,8 +32,8 @@
 
     <EditText
         android:id="@+id/name"
-        android:layout_width="300dp"
-        android:layout_height="51dp"
+        android:layout_width="230dp"
+        android:layout_height="53dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -51,8 +52,8 @@
 
     <EditText
         android:id="@+id/reg_log"
-        android:layout_width="300dp"
-        android:layout_height="51dp"
+        android:layout_width="230dp"
+        android:layout_height="53dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -73,8 +74,8 @@
 
     <EditText
         android:id="@+id/reg_pass1"
-        android:layout_width="300dp"
-        android:layout_height="51dp"
+        android:layout_width="230dp"
+        android:layout_height="53dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -93,8 +94,8 @@
 
     <Button
         android:id="@+id/check"
-        android:layout_width="91dp"
-        android:layout_height="54dp"
+        android:layout_width="130dp"
+        android:layout_height="55dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -108,7 +109,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.012" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/confirm"
@@ -123,10 +124,27 @@
         android:text="Зарегестрироваться"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.413"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.694" />
+        app:layout_constraintVertical_bias="0.586" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="151dp"
+        android:layout_height="158dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.967"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/wikipedia" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,24 +47,7 @@ public class MainActivity extends AppCompatActivity {
         log=(EditText)findViewById(R.id.log);
         pass=(EditText)findViewById(R.id.pass);
         btn=(Button)findViewById(R.id.button);
-        btn2=(Button)findViewById(R.id.button3);
-        btn2.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Cursor cursor = mDb.rawQuery("Select id_l, login, pass, id_u FROM Log_in order by id_l DESC limit 1",null);
-                        cursor.moveToFirst();
-                        String product = "";
-                        TextView t = (TextView)findViewById(R.id.textView2);
-                        while (!cursor.isAfterLast()){
-                            product= cursor.getString(0)+"|"+cursor.getString(1)+"|"+cursor.getString(2)+"|"+cursor.getString(3);
-                          cursor.moveToNext();
-                        }
-                        cursor.close();
-                        t.setText(product);
-                    }
-                }
-        );
+
 
         btn.setOnClickListener(
                 new View.OnClickListener() {
