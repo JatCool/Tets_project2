@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private SQLiteDatabase mDb;
     EditText log,pass;
     Button btn,btn2;
-    TextView reg;
+    TextView reg,fog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         btn=(Button)findViewById(R.id.button);
 
 
+
         btn.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -56,17 +59,28 @@ public class MainActivity extends AppCompatActivity {
                         Cursor cursor = mDb.rawQuery("Select u.name from Users u ,Log_in l Where l.login='"+log.getText().toString()+"' and l.pass='"+pass.getText().toString()+"' and u.id_u=l.id_u",null);
 
                         if(cursor.moveToFirst()){
+
                             ContentValues values = new ContentValues();
                             values.put("name",cursor.getString(0));
                             mDb.update("name_lg",values,null,null);
                             Intent intent = new Intent("com.example.log_in.Log");
                             log.setText("");pass.setText("");
+
                             startActivity(intent);
                         }
                         else{
                             Toast toast= Toast.makeText(getApplicationContext(),"Неверный логин или пароль",Toast.LENGTH_LONG); toast.show();
                             pass.setText("");
                         }
+                    }
+                }
+        );
+        fog = (TextView)findViewById(R.id.reg_link2);
+        fog.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                     startActivity( new Intent("com.example.log_in.ForgetPass"));
                     }
                 }
         );
