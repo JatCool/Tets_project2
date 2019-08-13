@@ -37,8 +37,19 @@ public class Log extends AppCompatActivity {
     private static final int STORAGE_PERMISSION_CODE = 911;
     private final int PICK_IMAGE_REQUEST = 1;
     private String imagePath;
+    private TextView tx;
     private ImageView imgview;
     private String id_u;
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Cursor cursor = mDb.rawQuery("Select l.name FROM name_lg l , Users u WHERE u.id_u=l.id_u", null);
+        cursor.moveToFirst();
+        tx = (TextView) findViewById(R.id.textView);
+        tx.setText("Добро пожаловать, " + cursor.getString(0));
+        cursor.close();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +102,7 @@ public class Log extends AppCompatActivity {
         }
         id_u = cursor.getString(2);
         tx.setText("Добро пожаловать, " + cursor.getString(0));
+        cursor.close();
         }
 
         @Override
@@ -102,9 +114,12 @@ public class Log extends AppCompatActivity {
         @Override
         public boolean onOptionsItemSelected(MenuItem menuItem){
             int id = menuItem.getItemId();
-            switch (id){
-                case R.id.settings:
-                    startActivity(new Intent("com.example.log_in.Settings"));
+            switch (id) {
+                case R.id.settings:{
+                    Intent set = new Intent(this, Settings.class);
+                    set.putExtra("id_u",id_u);
+                    startActivity(set);
+            }
                     return true;
 
             }

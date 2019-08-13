@@ -1,6 +1,5 @@
 package com.example.log_in;
 
-import androidx.annotation.IntRange;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,8 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseHelper mDBHelper;
@@ -81,7 +78,7 @@ private void openQuitDialog(){
             throw mSQLException;
         }
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        log=(EditText)findViewById(R.id.log);
+        log=(EditText)findViewById(R.id.name);
         pass=(EditText)findViewById(R.id.pass);
         btn=(Button)findViewById(R.id.button);
 progressBar = (ProgressBar)findViewById(R.id.progressBar);
@@ -121,7 +118,7 @@ progressBar = (ProgressBar)findViewById(R.id.progressBar);
 
     class Excute extends AsyncTask<String, Integer,Integer>
     {
-        int result=-1;
+
      @Override
         protected Integer  doInBackground(String... unused) {
          Cursor cursor = mDb.rawQuery("Select u.name , u.id_u from Users u ,Log_in l Where l.login='"+unused[0]+"' and l.pass='"+unused[1]+"' and u.id_u=l.id_u",null);
@@ -138,10 +135,10 @@ progressBar = (ProgressBar)findViewById(R.id.progressBar);
 
          }
          else{
-             result = 0;
+
              return 0;
          }
-         result = 1;
+
          return 1;
      }
 
