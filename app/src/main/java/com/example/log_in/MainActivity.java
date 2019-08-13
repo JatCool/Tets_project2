@@ -124,12 +124,13 @@ progressBar = (ProgressBar)findViewById(R.id.progressBar);
         int result=-1;
      @Override
         protected Integer  doInBackground(String... unused) {
-         Cursor cursor = mDb.rawQuery("Select u.name from Users u ,Log_in l Where l.login='"+unused[0]+"' and l.pass='"+unused[1]+"' and u.id_u=l.id_u",null);
+         Cursor cursor = mDb.rawQuery("Select u.name , u.id_u from Users u ,Log_in l Where l.login='"+unused[0]+"' and l.pass='"+unused[1]+"' and u.id_u=l.id_u",null);
 
          if(cursor.moveToFirst()){
 
              ContentValues values = new ContentValues();
              values.put("name",cursor.getString(0));
+             values.put("id_u",cursor.getString(1));
              mDb.update("name_lg",values,null,null);
               cursor.close();
 

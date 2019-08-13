@@ -74,20 +74,22 @@ public class Registr extends AppCompatActivity {
                     public void onClick(View view) {
                         if(!log.getText().toString().isEmpty()) {
                             if(Check()){
-                                if(!pass.getText().toString().isEmpty()&&!pass1.getText().toString().isEmpty()&&pass.getText().toString().equals(pass1.getText().toString())) {
+                                if(!pass.getText().toString().isEmpty()&&!pass1.getText().toString().isEmpty()&&pass.getText().toString().equals(pass1.getText().toString())&& pass.getText().length()==pass1.getText().length()&&pass.getText().length()>7&&pass.getText().length()<30) {
+                                    ContentValues values = new ContentValues();
+                                    values.put("name", name.getText().toString());
+                                    values.put("pic_path","0");
+                                    mDb.insert("Users", null, values);
+                                    values.clear();
                                     Cursor _id = mDb.rawQuery("Select id_u from Users ORDER by id_u DESC LIMIT 1", null);
                                     _id.moveToFirst();
                                     int cur_id = Integer.parseInt(_id.getString(0));
-                                    ContentValues values = new ContentValues();
-                                    values.put("name", name.getText().toString());
-                                    mDb.insert("Users", null, values);
-                                    values.clear();
                                     values.put("login", log.getText().toString());
                                     values.put("pass", pass1.getText().toString());
-                                    values.put("id_u", cur_id + 1);
+                                    values.put("id_u", cur_id);
                                     mDb.insert("Log_in", null, values);
                                     Toast t = Toast.makeText(getApplicationContext(), "Вы успешно зарегистрировались", Toast.LENGTH_LONG);
                                     t.show();
+                                    _id.close();
                                     finish();
                                 }
                                 else{Toast t = Toast.makeText(getApplicationContext(),"Пароли не совподают или одно из полей пустое",Toast.LENGTH_LONG);t.show();}
