@@ -12,6 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
+        <activity android:name=".Serials">
+            <intent-filter>
+                <action android:name="com.example.log_in.Serials" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Settings">
             <intent-filter>
                 <action android:name="com.example.log_in.Settings" />

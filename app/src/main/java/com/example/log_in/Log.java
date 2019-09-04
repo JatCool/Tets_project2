@@ -20,11 +20,14 @@ import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.squareup.picasso.Picasso;
 
@@ -40,6 +43,7 @@ public class Log extends AppCompatActivity {
     private TextView tx;
     private ImageView imgview;
     private String id_u;
+    private VideoView rofl;
 
     @Override
     protected void onResume(){
@@ -73,7 +77,15 @@ public class Log extends AppCompatActivity {
         Cursor cursor = mDb.rawQuery("Select l.name, u.pic_path,l.id_u FROM name_lg l , Users u WHERE u.id_u=l.id_u", null);
         TextView tx = (TextView) findViewById(R.id.textView);
         imgview = (ImageView) findViewById(R.id.imageView3);
-
+         rofl = (VideoView)findViewById(R.id.videoView) ;
+         rofl.setOnClickListener(
+                 new View.OnClickListener() {
+                     @Override
+                     public void onClick(View view) {
+                        VideoChuser();
+                     }
+                 }
+         );
         imgview.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -82,15 +94,16 @@ public class Log extends AppCompatActivity {
                     }
                 }
         );
+
         cursor.moveToFirst();
         try {
 
 
             if (!cursor.getString(1).equals("0")) {
-                File file = new File(cursor.getString(1));
-                if(file.exists()) {
+                File image = new File(cursor.getString(1));
+                if(image.exists()) {
                     Picasso.with(this)
-                            .load(new File(cursor.getString(1)))
+                            .load(image)
                             .resize(400, 400)
                             .centerCrop()
                             .into(imgview);
@@ -110,7 +123,12 @@ public class Log extends AppCompatActivity {
             getMenuInflater().inflate(R.menu.main_menu, menu);
             return true;
         }
-
+  void VideoChuser(){
+      Intent intent = new Intent();
+      intent.setType("video/*");
+      intent.setAction(Intent.ACTION_PICK);
+      startActivityForResult(Intent.createChooser(intent, "Выберите видеокартинку"), PICK_IMAGE_REQUEST);
+  }
         @Override
         public boolean onOptionsItemSelected(MenuItem menuItem){
             int id = menuItem.getItemId();
@@ -119,8 +137,13 @@ public class Log extends AppCompatActivity {
                     Intent set = new Intent(this, Settings.class);
                     set.putExtra("id_u",id_u);
                     startActivity(set);
-            }
                     return true;
+            }
+                case R.id.site:{
+                    startActivity(new Intent(this,Serials.class));
+                    return true;
+                }
+
 
             }
             return super.onOptionsItemSelected(menuItem);
@@ -148,6 +171,14 @@ public class Log extends AppCompatActivity {
             ContentValues values = new ContentValues();
             values.put("pic_path",imagePath);
             mDb.update("Users",values,"id_u="+id_u,null);
+
+               Uri selectedVideoUri = data.getData();
+               imagePath = getRealPathFromURIVideo(selectedVideoUri);
+               rofl.setVideoPath(imagePath);
+               rofl.setMediaController(new MediaController(this));
+               rofl.requestFocus();
+               rofl.start();
+
         }
     }
 
@@ -156,6 +187,17 @@ public class Log extends AppCompatActivity {
         CursorLoader loader = new CursorLoader(getApplicationContext(), contentUri, proj, null, null, null);
         Cursor cursor = loader.loadInBackground();
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String result = cursor.getString(column_index);
+        cursor.close();
+        return result;
+    }
+
+    private String getRealPathFromURIVideo(Uri contentUri) {
+        String[] proj = {MediaStore.Video.Media.DATA};
+        CursorLoader loader = new CursorLoader(getApplicationContext(), contentUri, proj, null, null, null);
+        Cursor cursor = loader.loadInBackground();
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
         cursor.moveToFirst();
         String result = cursor.getString(column_index);
         cursor.close();
